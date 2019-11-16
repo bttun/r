@@ -29,3 +29,5 @@ jobs:
       run: find . -name "*.md"
     - name: find .md
       run: find . -name "_sidebar.md"
+    - name: echo _sidebar.md
+      run: echo Hello, world! > ./_sidebar.md
