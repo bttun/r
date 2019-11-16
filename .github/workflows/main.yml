@@ -25,3 +25,7 @@ jobs:
       run: echo Hello, world! > _sidebar.md
     - name: cat _sidebar.md
       run: cat _sidebar.md
+    - name: find .md
+      run: find . -name "*.md"
+    - name: find .md
+      run: find . -name "_sidebar.md"
