@@ -21,3 +21,7 @@ jobs:
       run: find . -mindepth 2 -name "*.md"
     - name: test find echo
       run: find . -mindepth 2 -name "*.md" > _sidebar.md
+    - name: echo _sidebar.md
+      run: echo Hello, world! > _sidebar.md
+    - name: cat _sidebar.md
+      run: cat _sidebar.md
