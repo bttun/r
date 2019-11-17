@@ -1,33 +1,80 @@
-name: CI
+name: Generate
 
-on: [push]
+on: 
+  push:
+    branches:    
+      - master
 
 jobs:
-  build:
+  Generate:
+    name: Generate
 
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
-    - name: Run a one-line script
-      run: echo Hello, world!
-    - name: Run a multi-line script
+    - name: Checkout
+      uses: actions/checkout@master
+      
+    - name: Generate and Deploy
       run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
-    - name: Gen sidebar.md
-      run: find . -mindepth 2 -name "*.md" | awk -F'/' 'BEGIN {RS=".md"} {arr[$2]=arr[$2]"\n    - ["$3"](/"$2"/"$3")"} END { num = asorti(arr, indices); for (i=1; i<=num; ++i) if (indices[i]) print "- "indices[i], arr[indices[i]]}' > _sidebar.md
-    - name: test find
-      run: find . -mindepth 2 -name "*.md"
-    - name: test find echo
-      run: find . -mindepth 2 -name "*.md" > _sidebar.md
-    - name: echo _sidebar.md
-      run: echo Hello, world! > _sidebar.md
-    - name: cat _sidebar.md
-      run: cat _sidebar.md
-    - name: find .md
-      run: find . -name "*.md"
-    - name: find .md
-      run: find . -name "_sidebar.md"
-    - name: echo _sidebar.md
-      run: echo Hello, world! > ./_sidebar.md
+        echo Generate and Deploy Start!
+        
+        # Installs Git and jq.
+        apt-get update && apt-get install -y git && apt-get install -y jq
+
+        # Gets the commit email/name if it exists in the push event payload.
+        COMMIT_EMAIL=`jq '.pusher.email' ${GITHUB_EVENT_PATH}`
+        COMMIT_NAME=`jq '.pusher.name' ${GITHUB_EVENT_PATH}`
+        
+        # Directs the action to the the Github workspace.
+        cd $GITHUB_WORKSPACE && \
+
+        # Configures Git.
+        git init && \
+        git config --global user.email "${COMMIT_EMAIL}" && \
+        git config --global user.name "${COMMIT_NAME}" && \
+
+        # Initializes the repository path using the access token.
+        REPOSITORY_PATH="https://${ACCESS_TOKEN:-"x-access-token:$GITHUB_TOKEN"}@github.com/${GITHUB_REPOSITORY}.git" && \
+        
+        # Checks out the base branch to begin the deploy process.
+        git checkout "${BASE_BRANCH:-master}" && \
+        
+        find . -mindepth 2 -name "*.md" | awk -F'/' 'BEGIN {RS=".md"} {arr[$2]=arr[$2]"\n    - ["$3"](/"$2"/"$3")"} END { num = asorti(arr, indices); for (i=1; i<=num; ++i) if (indices[i]) print "- "indices[i], arr[indices[i]]}' > ./_sidebar.md
+        
+        # Commits the data to Github.
+        echo "Deploying to GitHub..." && \
+        git add -f $FOLDER && \
+
+        git commit -m "Deploying to ${BRANCH} from ${BASE_BRANCH:-master} ${GITHUB_SHA}" --quiet && \
+        git push $REPOSITORY_PATH `git subtree split --prefix $FOLDER ${BASE_BRANCH:-master}`:$BRANCH --force && \
+
+        echo "Deployment succesful!"
+        
+      env:
+        ACCESS_TOKEN: ${{ secrets.GIT_ACTIONS_TOKEN }}
+        BASE_BRANCH: master
+        BRANCH: master
+        FOLDER: .
+#     - name: Run a one-line script
+#       run: echo Hello, world!
+#     - name: Run a multi-line script
+#       run: |
+#         echo Add other actions to build,
+#         echo test, and deploy your project.
+#     - name: Gen sidebar.md
+#       run: find . -mindepth 2 -name "*.md" | awk -F'/' 'BEGIN {RS=".md"} {arr[$2]=arr[$2]"\n    - ["$3"](/"$2"/"$3")"} END { num = asorti(arr, indices); for (i=1; i<=num; ++i) if (indices[i]) print "- "indices[i], arr[indices[i]]}' > _sidebar.md
+#     - name: test find
+#       run: find . -mindepth 2 -name "*.md"
+#     - name: test find echo
+#       run: find . -mindepth 2 -name "*.md" > _sidebar.md
+#     - name: echo _sidebar.md
+#       run: echo Hello, world! > _sidebar.md
+#     - name: cat _sidebar.md
+#       run: cat _sidebar.md
+#     - name: find .md
+#       run: find . -name "*.md"
+#     - name: find .md
+#       run: find . -name "_sidebar.md"
+#     - name: echo _sidebar.md
+#       run: echo Hello, world! > ./_sidebar.md
