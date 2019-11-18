@@ -30,6 +30,8 @@ jobs:
         # Gets the commit email/name if it exists in the push event payload.
         COMMIT_EMAIL=`jq '.pusher.email' ${GITHUB_EVENT_PATH}`
         COMMIT_NAME=`jq '.pusher.name' ${GITHUB_EVENT_PATH}`
+        echo $COMMIT_EMAIL
+        echo $COMMIT_NAME
         
         # Directs the action to the the Github workspace.
         # cd $GITHUB_WORKSPACE && \
@@ -49,6 +51,7 @@ jobs:
         find . -mindepth 2 -name "*.md" | awk -F'/' 'BEGIN {RS=".md"} {arr[$2]=arr[$2]"\n    - ["$3"](/"$2"/"$3")"} END { num = asorti(arr, indices); for (i=1; i<=num; ++i) if (indices[i]) print "- "indices[i], arr[indices[i]]}' > ./_sidebar.md
         cat _sidebar.md
         
+        git status
         git add -f .
         git commit -m "Generate _sidebar.md"
         git push
