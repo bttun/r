@@ -19,6 +19,8 @@ jobs:
       run: |
         echo Generate and Deploy Start!
         
+        ls -la
+        
         # Installs Git and jq.
         # apt-get update && apt-get install -y git && apt-get install -y jq
 
@@ -28,11 +30,12 @@ jobs:
         
         # Directs the action to the the Github workspace.
         cd $GITHUB_WORKSPACE && \
+        ls -la
 
         # Configures Git.
-        git init && \
-        git config --global user.email "${COMMIT_EMAIL}" && \
-        git config --global user.name "${COMMIT_NAME}" && \
+        # git init && \
+        # git config --global user.email "${COMMIT_EMAIL}" && \
+        # git config --global user.name "${COMMIT_NAME}" && \
 
         # Initializes the repository path using the access token.
         REPOSITORY_PATH="https://${ACCESS_TOKEN:-"x-access-token:$GITHUB_TOKEN"}@github.com/${GITHUB_REPOSITORY}.git" && \
