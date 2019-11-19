@@ -61,8 +61,8 @@ jobs:
         git commit -m "Generate _sidebar.md"
         git status
         # git push
-        # git push origin HEAD:master
-        git push $REPOSITORY_PATH:master
+        git push origin HEAD:master --force
+        # git push $REPOSITORY_PATH:master
         
         # Commits the data to Github.
         echo "Deploying to GitHub..." && \
