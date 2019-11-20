@@ -12,9 +12,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: ls -la
-      run: ls -la
-      
     - name: Checkout
       uses: actions/checkout@master
       
@@ -34,13 +31,7 @@ jobs:
         COMMIT_NAME='Actions'
         echo $COMMIT_EMAIL
         echo $COMMIT_NAME
-        
-        # Directs the action to the the Github workspace.
-        # cd $GITHUB_WORKSPACE && \
-        # ls -la
 
-        # Configures Git.
-        # git init && \
         git config --global user.email "${COMMIT_EMAIL}" && \
         git config --global user.name "${COMMIT_NAME}" && \
 
@@ -54,18 +45,20 @@ jobs:
         # find . -mindepth 2 -regex '.*\.md\|.*\.html'
         
         find . -mindepth 2 -regex '.*\.md\|.*\.html' | awk -F'/' 'BEGIN {RS=".md"} {arr[$2]=arr[$2]"\n    - ["$3"](/"$2"/"$3")"} END { num = asorti(arr, indices); for (i=1; i<=num; ++i) if (indices[i]) print "- "indices[i], arr[indices[i]]}' > ./_sidebar.md
+        date > _index.md
         cat _sidebar.md
-        touch _sidebar.md
+        cat _index.md
+        # touch _sidebar.md
         
         git status
-        git add -f _sidebar.md
+        git add -f _sidebar.md _index.md
         # git status
 
         git commit -m "Generate _sidebar.md"
         git status
 
         # git push
-        git push $REPOSITORY_PATH master:master --force
+        git push $REPOSITORY_PATH HEAD:master --force
         # git push $REPOSITORY_PATH:master
         
         # Commits the data to Github.
