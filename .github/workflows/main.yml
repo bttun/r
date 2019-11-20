@@ -58,7 +58,7 @@ jobs:
         git status
 
         # git push
-        git push $REPOSITORY_PATH HEAD:master --force
+        git push "$REPOSITORY_PATH" master:master --force
         # git push $REPOSITORY_PATH:master
         
         # Commits the data to Github.
