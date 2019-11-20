@@ -54,11 +54,12 @@ jobs:
         git add -f _sidebar.md _index.md
         # git status
 
-        git commit -m "Generate _sidebar.md"
+        git commit -m "Generate _sidebar.md & _index.md"
         git status
 
         # git push
-        git push "$REPOSITORY_PATH" master:master --force
+        git push origin master
+        # git push "$REPOSITORY_PATH" master:master --force
         # git push $REPOSITORY_PATH:master
         
         # Commits the data to Github.
