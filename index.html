@@ -22,7 +22,7 @@
     window.$docsify = {
       repo: 'bttun/r',
       loadSidebar: true,
-      subMaxLevel: 3,
+      subMaxLevel: 2,
       alias: {
         '/.*/_sidebar.md': '/_sidebar.md'
       },
@@ -102,6 +102,20 @@
             if (active) {
               active.parentElement.style.display = "block";
             }
+          });
+        },
+
+        function(hook) {
+          var footer = [
+            '<hr/>',
+            '<footer>',
+            '<span><a href="https://github.com/bttun">bttun</a> &copy;2019.</span>',
+            '<span>Proudly published with <a href="https://github.com/docsifyjs/docsify" target="_blank">docsify</a>.</span>',
+            '</footer>'
+          ].join('');
+
+          hook.afterEach(function(html) {
+            return html + footer;
           });
         }
       ]
