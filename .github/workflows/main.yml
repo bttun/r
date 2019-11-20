@@ -1,9 +1,10 @@
 name: Generate
 
 on: 
-  push:
-    branches:    
-      - master
+  []
+  # push:
+  #   branches:    
+  #     - master
 
 jobs:
   Generate:
