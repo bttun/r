@@ -47,18 +47,6 @@ TEST_LIST = ['399300']
 pd
 ```
 
-
-
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<script src="https://code.highcharts.com/stock/highstock.js"></script>
-<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
-
-
-
-
-
-
     <module 'pandas' from 'd:\\python3\\lib\\site-packages\\pandas\\__init__.py'>
 
 
