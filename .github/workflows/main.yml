@@ -50,23 +50,24 @@ jobs:
         cat _index.md
         # touch _sidebar.md
         
+        echo 2331 > _test.md
+        
         git status
-        git add -f _sidebar.md _index.md
+        git add -f _sidebar.md _index.md _test.md
         # git status
 
         git commit -m "Generate _sidebar.md & _index.md"
         git status
+        
+        # Commits the data to Github.
+        echo "Deploying to GitHub..." && \
 
+        # git commit -m "Deploying to ${BRANCH} from ${BASE_BRANCH:-master} ${GITHUB_SHA}" --quiet && \
+        
         # git push
         git push origin master
         # git push "$REPOSITORY_PATH" master:master --force
         # git push $REPOSITORY_PATH:master
-        
-        # Commits the data to Github.
-        echo "Deploying to GitHub..." && \
-        # git add -f $FOLDER && \
-
-        # git commit -m "Deploying to ${BRANCH} from ${BASE_BRANCH:-master} ${GITHUB_SHA}" --quiet && \
         # git push $REPOSITORY_PATH `git subtree split --prefix $FOLDER ${BASE_BRANCH:-master}`:$BRANCH --force && \
 
         echo "Deployment succesful!"
