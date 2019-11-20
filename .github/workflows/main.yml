@@ -66,8 +66,8 @@ jobs:
         
         # git push
         # git push origin master
-        git push origin HEAD:master --force
-        # git push "$REPOSITORY_PATH" master:master --force
+        # git push origin HEAD:master --force
+        git push --force "$REPOSITORY_PATH" master:master
         # git push $REPOSITORY_PATH:master
         # git push $REPOSITORY_PATH `git subtree split --prefix $FOLDER ${BASE_BRANCH:-master}`:$BRANCH --force && \
 
