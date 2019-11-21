@@ -46,7 +46,7 @@ jobs:
 
         # find . -mindepth 2 -regex '.*\.md\|.*\.html'
         
-        git clone REPOSITORY_PATH
+        git clone $REPOSITORY_PATH
         git status
         ls -la
         
