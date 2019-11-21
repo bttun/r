@@ -33,8 +33,8 @@ jobs:
         echo $COMMIT_NAME
 
         # git init && \
-        git config --global user.email "${COMMIT_EMAIL}" && \
-        git config --global user.name "${COMMIT_NAME}" && \
+        # git config --global user.email "${COMMIT_EMAIL}" && \
+        # git config --global user.name "${COMMIT_NAME}" && \
 
         # Initializes the repository path using the access token.
         # REPOSITORY_PATH="https://${ACCESS_TOKEN:-"x-access-token:$GIT_ACTIONS_TOKEN"}@github.com/${GITHUB_REPOSITORY}.git"
@@ -46,8 +46,8 @@ jobs:
 
         # find . -mindepth 2 -regex '.*\.md\|.*\.html'
         
-        git clone $REPOSITORY_PATH
-        git status
+        # git clone $REPOSITORY_PATH
+        # git status
         ls -la
         
         find . -mindepth 2 -regex '.*\.md\|.*\.html' | awk -F'/' 'BEGIN {RS=".md"} {arr[$2]=arr[$2]"\n    - ["$3"](/"$2"/"$3")"} END { num = asorti(arr, indices); for (i=1; i<=num; ++i) if (indices[i]) print "- "indices[i], arr[indices[i]]}' > ./_sidebar.md
@@ -58,12 +58,12 @@ jobs:
         
         echo 2331 > _test.md
         
-        git status
-        git add -f _sidebar.md _index.md _test.md
+        # git status
+        # git add -f _sidebar.md _index.md _test.md
         # git status
 
-        git commit -m "Generate _sidebar.md & _index.md"
-        git status
+        # git commit -m "Generate _sidebar.md & _index.md"
+        # git status
         
         # Commits the data to Github.
         echo "Deploying to GitHub..." && \
@@ -71,7 +71,7 @@ jobs:
         # git commit -m "Deploying to ${BRANCH} from ${BASE_BRANCH:-master} ${GITHUB_SHA}" --quiet && \
         
         # git push
-        git push origin master
+        # git push origin master
         # git push origin HEAD:master --force
         # git push --force "$REPOSITORY_PATH" master:master
         # git push $REPOSITORY_PATH:master
