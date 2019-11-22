@@ -1,4 +1,4 @@
-name: Generate
+name: Test_Deploy
 
 on: 
   push:
@@ -27,7 +27,7 @@ jobs:
           OWNER="$(echo $GITHUB_REPOSITORY| cut -d'/' -f 1)" && \
           GHIO="${OWNER}.github.io" && \
           REMOTE_BRANCH="master"
-          fi && \
+          
           git init && \
           git config user.name "${GITHUB_ACTOR}" && \
           git config user.email "${GITHUB_ACTOR}@users.noreply.github.com" && \
