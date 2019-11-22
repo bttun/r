@@ -18,7 +18,7 @@ jobs:
         run: |
           echo "#################################################"
           echo "Changing directory to 'BUILD_DIR' $BUILD_DIR ..."
-          cd $BUILD_DIR
+          # cd $BUILD_DIR
 
           echo "#################################################"
           echo "Now deploying to GitHub Pages..."
@@ -28,7 +28,7 @@ jobs:
           GHIO="${OWNER}.github.io" && \
           REMOTE_BRANCH="master"
           
-          git init && \
+          # git init && \
           git config user.name "${GITHUB_ACTOR}" && \
           git config user.email "${GITHUB_ACTOR}@users.noreply.github.com" && \
 
@@ -38,9 +38,10 @@ jobs:
               echo "Nothing to commit" && \
               exit 0
           fi && \
+          
           git add . && \
           git commit -m 'Deploy to GitHub Pages' && \
           git push --force $REMOTE_REPO master:$REMOTE_BRANCH && \
           rm -fr .git && \
-          cd $GITHUB_WORKSPACE && \
+          # cd $GITHUB_WORKSPACE && \
           echo "Content of $BUILD_DIR has been deployed to GitHub Pages."
