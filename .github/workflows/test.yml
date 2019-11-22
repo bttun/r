@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  Test Deploy:
+  Test_Deploy:
     name: Test Deploy
 
     runs-on: ubuntu-latest
