@@ -13,7 +13,7 @@ jobs:
         name: Build
         run: |
           date > _index.md
-          echo $GITHUB_PAT
+          # echo $GITHUB_PAT
         env:
           GITHUB_PAT: ${{ secrets.GIT_ACTIONS_TOKEN }}
       -
